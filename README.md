@@ -2,21 +2,24 @@
 Repositorio perteneciente al trabajo práctico Nº1 de Persistencia de la materia Desarrollo de Software
 
 # Trabajo completo
-El trabajo completo se puede descargar como .rar desde [aquí](https://github.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/blob/main/TP1_Persistencia.rar)
+El trabajo completo se puede descargar como .rar desde [aquí](https://github.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/raw/main/TP1_Persistencia.rar)
 
 # Desarrollo del trabajo práctico
 A continuación se van a detallar el desarrollo completo del trabajo realizado
 
 ## Mapeo de relaciones
-Se ha utilizado el siguiente diagrama como base para realizar el trabajo: ![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/TP1_Persistencia/Diagrama%20Clase%20Utilizado.jpg)
+Se ha utilizado el siguiente diagrama como base para realizar el trabajo: ![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/Assets/Diagrama%20Clase%20Utilizado.jpg)
 
 A partir del mismo se hicieron las siguientes clases y paquetes:
 
 ### Dentro del paquete 'Entidades':
-![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/TP1_Persistencia/EntidadesCreadas.jpg)
+![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/Assets/EntidadesCreadas.jpg)
 
 ### Dentro del paquete 'Repositorios':
-![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/TP1_Persistencia/RepositoriosCreados.jpg)
+![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/Assets/RepositoriosCreados.jpg)
+
+### Dentro del paquete 'Enumeraciones':
+![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/Assets/EnumeracionesCreadas.jpg)
 
 Una vez creadas las clases, se las completo con los atributos pedidos en el diagrama de clases.
 
@@ -71,7 +74,7 @@ Las relaciones One to Many fueron mapeadas utilizando Arrays (debido a que puede
 A continuación se van a mostrar capturas de pantalla para comprobar el correcto funcionamiento del trabajo realizado, tanto por la consola como por las tablas de la base de datos H2
 
 ### A través de la consola
-![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/TP1_Persistencia/ConsolaMessi.jpg)
+![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/Assets/ConsolaMessi.jpg)
 
 ### A través de la base de datos H2
 A continuación se van a dar 3 ejemplos de consultas en SQL para comprobar el correcto funcionamiento de las bases de datos
@@ -79,28 +82,34 @@ A continuación se van a dar 3 ejemplos de consultas en SQL para comprobar el co
 
 #### FECHA Y TIPOS DE PRODUCTOS QUE HA PEDIDO MESSI
 
-`SELECT DISTINCT C.APELLIDO, F.FECHA, PROD.TIPO
-FROM CLIENTE AS C, PEDIDO AS P, FACTURA AS F, DETALLE_PEDIDO AS D, PRODUCTO AS PROD
-WHERE C.APELLIDO LIKE 'Messi' AND P.CLIENTE_ID=C.ID AND P.ID=D.ID_PEDIDO AND D.ID_PRODUCTO=PROD.ID`
+`SELECT DISTINCT C.APELLIDO, F.FECHA, PROD.TIPO`
 
-![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/TP1_Persistencia/SQL%201%20Messi.jpg)
+`FROM CLIENTE AS C, PEDIDO AS P, FACTURA AS F, DETALLE_PEDIDO AS D, PRODUCTO AS PROD`
+
+`WHERE C.APELLIDO LIKE 'Messi' AND P.CLIENTE_ID=C.ID AND P.ID=D.ID_PEDIDO AND D.ID=PROD.ID`
+
+![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/Assets/SQL%201%20Messi.jpg)
 
 
 
 #### NOMBRE Y APELLIDO DE LOS CLIENTES CUYA COMPRA TUVO UN SUBTOTAL MAYOR A 15.000
 
-`SELECT DISTINCT C.APELLIDO, C.NOMBRE
-FROM CLIENTE AS C, PEDIDO AS P, DETALLE_PEDIDO AS D
-WHERE C.ID=P.CLIENTE_ID AND P.ID=D.ID_PEDIDO AND D.SUBTOTAL > 15000`
+`SELECT DISTINCT C.NOMBRE, C.APELLIDO, D.SUBTOTAL`
 
-![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/TP1_Persistencia/SQL%202%20Subtotal.jpg)
+`FROM CLIENTE AS C, PEDIDO AS P, DETALLE_PEDIDO AS D`
+
+`WHERE C.ID=P.CLIENTE_ID AND P.ID=D.ID_PEDIDO AND D.SUBTOTAL > 15000`
+
+![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/Assets/SQL%202%20Subtotal.jpg)
 
 
 
 #### NOMBRE, APELLIDO, FECHA Y RUBRO ELEGIDO AL MOMENTO DE COMPRAR DE LAS PERSONAS QUE VIVEN EN QUILMES
 
-`SELECT DISTINCT C.APELLIDO, C.NOMBRE, R.DENOMINACION, DOM.LOCALIDAD
-FROM CLIENTE AS C, PEDIDO AS P, DETALLE_PEDIDO AS D, PRODUCTO AS PROD, RUBRO AS R, DOMICILIO AS DOM
-WHERE C.ID=P.CLIENTE_ID AND D.ID=PROD.ID AND PROD.RUBRO_ID=R.ID AND C.ID=DOM.CLIENTE_ID AND DOM.LOCALIDAD LIKE 'Quilmes'`
+`SELECT DISTINCT  C.NOMBRE, C.APELLIDO, R.DENOMINACION, DOM.LOCALIDAD`
 
-![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/TP1_Persistencia/SQL%203%20Nombre%20y%20Rubro%20de%20Quilmes.jpg)
+`FROM CLIENTE AS C, PEDIDO AS P, DETALLE_PEDIDO AS D, PRODUCTO AS PROD, RUBRO AS R, DOMICILIO AS DOM`
+
+`WHERE C.ID=P.CLIENTE_ID AND D.ID=PROD.ID AND PROD.RUBRO_ID=R.ID AND C.ID=DOM.CLIENTE_ID AND DOM.LOCALIDAD LIKE 'Quilmes'`
+
+![](https://raw.githubusercontent.com/Facustriker/TP-N1-Persistencia-Olea_Facundo/main/Assets/SQL%203%20Nombre%20y%20Rubro%20de%20Quilmes.jpg)
