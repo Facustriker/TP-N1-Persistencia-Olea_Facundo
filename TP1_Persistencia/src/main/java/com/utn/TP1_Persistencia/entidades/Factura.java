@@ -14,9 +14,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Factura implements Serializable {
+public class Factura extends BaseEntidad {
 
-    @Id
     private int numero;
     private LocalDate fecha;
     private double descuento;
